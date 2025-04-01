@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-mq-config
+  labels:
+    app: {{ .Release.Name }}
+data:
+  qmgrdef-k8s.mqsc: |
+    DEFINE QLOCAL(TEST.LOCAL.QUEUE)
+    

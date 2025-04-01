@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-mq
+  labels:
+    app: {{ .Release.Name }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}
+    spec:
+      containers:
+        - name: ibm-mq
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            - name: MQ_DEV
+              value: "false"
+            - name: MQ_ENABLE_EMBEDDED_WEB_SERVER
+              value: "true"
+            - name: LICENSE
+              value: "accept"
+            - name: MQ_QMGR_NAME
+              value: "{{ .Values.queueManagerName }}"
+          ports:
+            - containerPort: {{ .Values.service.port }}
+          volumeMounts:
+            - name: mq-config
+              mountPath: /etc/mqm/qmgrdef-k8s.mqsc
+              subPath: qmgrdef-k8s.mqsc
+          resources:
+            limits:
+              cpu: {{ .Values.resources.limits.cpu }}
+              memory: {{ .Values.resources.limits.memory }}
+            requests:
+              cpu: {{ .Values.resources.requests.cpu }}
+              memory: {{ .Values.resources.requests.memory }}
+      volumes:
+        - name: mq-config
+          configMap:
+            name: {{ .Release.Name }}-mq-config        

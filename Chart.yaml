@@ -1,0 +1,4 @@
+apiVersion: v2
+name: ibm-mq-queue-manager
+version: 0.1.0
+description: A simple Helm chart for an IBM MQ Queue Manager on Kubernetes

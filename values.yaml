@@ -1,0 +1,20 @@
+queueManagerName: QMGRA
+# to know which image I can use, please consult the website (here for IBM MQ 9.4). The LTS was selected 
+# https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mq-advanced-developers-container-image
+image:
+  repository: icr.io/ibm-messaging/mq
+  tag: 9.4.0.10-r2
+  pullPolicy: IfNotPresent
+resources:
+  limits:
+    cpu: "1"
+    memory: "2Gi"
+  requests:
+    cpu: "500m"
+    memory: "1Gi"
+service:
+  type: ClusterIP
+  port: 1415
+serviceWeb:
+  type: LoadBalancer
+  port: 9443
