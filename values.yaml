@@ -1,4 +1,5 @@
 queueManagerName: QMGRA
+nameSpace: ns-app-qmgr
 # to know which image I can use, please consult the website (here for IBM MQ 9.4). The LTS was selected 
 # https://www.ibm.com/docs/en/ibm-mq/9.4?topic=reference-mq-advanced-developers-container-image
 image:
