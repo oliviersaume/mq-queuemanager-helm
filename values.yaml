@@ -14,7 +14,7 @@ resources:
     cpu: "500m"
     memory: "1Gi"
 service:
-  type: ClusterIP
+  type: LoadBalancer
   port: 1415
 serviceWeb:
   type: LoadBalancer
